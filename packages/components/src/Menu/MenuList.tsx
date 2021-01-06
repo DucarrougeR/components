@@ -57,7 +57,7 @@ import {
   reset,
   omitStyledProps,
 } from '@looker/design-tokens'
-import { moveFocus, useForkedRef, useWindow } from '../utils'
+import { moveFocus, useForkedRef, useWindow, useWrapEvent } from '../utils'
 import { MenuItemContext } from './MenuItemContext'
 import { MenuGroup } from './MenuGroup'
 
@@ -137,6 +137,7 @@ export const MenuListInternal = forwardRef(
       pin,
       placement,
       windowing,
+      onKeyDown: propsOnKeyDown,
       ...props
     }: MenuListProps,
     forwardedRef: Ref<HTMLUListElement>
@@ -187,25 +188,30 @@ export const MenuListInternal = forwardRef(
     })
     const forkedRef = useForkedRef(forwardedRef, ref)
 
-    function handleArrowKey(direction: number, initial: number) {
+    const handleArrowKey = (direction: number, initial: number) => {
       moveFocus(direction, initial, containerElement)
     }
 
     const context = {
       compact,
-      handleArrowDown: (e: KeyboardEvent<HTMLLIElement>) => {
-        e.preventDefault()
-        handleArrowKey(1, 0)
-        return false
-      },
-      handleArrowUp: (e: KeyboardEvent<HTMLLIElement>) => {
-        e.preventDefault()
-        handleArrowKey(-1, -1)
-        return false
-      },
       renderIconPlaceholder,
       setRenderIconPlaceholder,
     }
+
+    const handleKeyDown = (e: KeyboardEvent<HTMLUListElement>) => {
+      switch (e.key) {
+        case 'ArrowUp':
+          e.preventDefault()
+          handleArrowKey(-1, -1)
+          break
+        case 'ArrowDown':
+          e.preventDefault()
+          handleArrowKey(1, 0)
+          break
+      }
+    }
+
+    const onKeyDown = useWrapEvent(handleKeyDown, propsOnKeyDown)
 
     return (
       <MenuItemContext.Provider value={context}>
@@ -213,6 +219,7 @@ export const MenuListInternal = forwardRef(
           ref={forkedRef}
           tabIndex={-1}
           role="menu"
+          onKeyDown={onKeyDown}
           {...omitStyledProps(omit(props, 'groupDividers'))}
         >
           {content}

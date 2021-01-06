@@ -158,7 +158,6 @@ exports[`MenuGroup - JSX label 1`] = `
       className="c6 c7"
       onBlur={[Function]}
       onClick={[Function]}
-      onKeyDown={[Function]}
       onKeyUp={[Function]}
     >
       <button
@@ -173,7 +172,6 @@ exports[`MenuGroup - JSX label 1`] = `
       className="c6 c7"
       onBlur={[Function]}
       onClick={[Function]}
-      onKeyDown={[Function]}
       onKeyUp={[Function]}
     >
       <button
@@ -188,7 +186,6 @@ exports[`MenuGroup - JSX label 1`] = `
       className="c6 c7"
       onBlur={[Function]}
       onClick={[Function]}
-      onKeyDown={[Function]}
       onKeyUp={[Function]}
     >
       <button
@@ -353,7 +350,6 @@ exports[`MenuGroup - label 1`] = `
       className="c5 c6"
       onBlur={[Function]}
       onClick={[Function]}
-      onKeyDown={[Function]}
       onKeyUp={[Function]}
     >
       <button
@@ -368,7 +364,6 @@ exports[`MenuGroup - label 1`] = `
       className="c5 c6"
       onBlur={[Function]}
       onClick={[Function]}
-      onKeyDown={[Function]}
       onKeyUp={[Function]}
     >
       <button
@@ -383,7 +378,6 @@ exports[`MenuGroup - label 1`] = `
       className="c5 c6"
       onBlur={[Function]}
       onClick={[Function]}
-      onKeyDown={[Function]}
       onKeyUp={[Function]}
     >
       <button
@@ -510,7 +504,6 @@ exports[`MenuGroup 1`] = `
       className="c2 c3"
       onBlur={[Function]}
       onClick={[Function]}
-      onKeyDown={[Function]}
       onKeyUp={[Function]}
     >
       <button
