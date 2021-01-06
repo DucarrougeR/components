@@ -30,7 +30,6 @@ import React, {
   Children,
   forwardRef,
   isValidElement,
-  KeyboardEvent,
   ReactChild,
   Ref,
   useEffect,
@@ -57,7 +56,7 @@ import {
   reset,
   omitStyledProps,
 } from '@looker/design-tokens'
-import { moveFocus, useForkedRef, useWindow, useWrapEvent } from '../utils'
+import { useCollectionNav, useForkedRef, useWindow } from '../utils'
 import { MenuItemContext } from './MenuItemContext'
 import { MenuGroup } from './MenuGroup'
 
@@ -137,7 +136,10 @@ export const MenuListInternal = forwardRef(
       pin,
       placement,
       windowing,
-      onKeyDown: propsOnKeyDown,
+
+      onBlur,
+      onFocus,
+      onKeyDown,
       ...props
     }: MenuListProps,
     forwardedRef: Ref<HTMLUListElement>
@@ -180,7 +182,7 @@ export const MenuListInternal = forwardRef(
       return (child: ReactChild) => getMenuGroupHeight(child, compact)
     }, [windowing, childArray, compact])
 
-    const { content, containerElement, ref } = useWindow({
+    const { content, containerElement, ref } = useWindow<HTMLUListElement>({
       childHeight: childHeight,
       children: children as JSX.Element | JSX.Element[],
       enabled: windowing !== 'none',
@@ -188,9 +190,12 @@ export const MenuListInternal = forwardRef(
     })
     const forkedRef = useForkedRef(forwardedRef, ref)
 
-    const handleArrowKey = (direction: number, initial: number) => {
-      moveFocus(direction, initial, containerElement)
-    }
+    const navProps = useCollectionNav({
+      element: containerElement,
+      onBlur,
+      onFocus,
+      onKeyDown,
+    })
 
     const context = {
       compact,
@@ -198,29 +203,13 @@ export const MenuListInternal = forwardRef(
       setRenderIconPlaceholder,
     }
 
-    const handleKeyDown = (e: KeyboardEvent<HTMLUListElement>) => {
-      switch (e.key) {
-        case 'ArrowUp':
-          e.preventDefault()
-          handleArrowKey(-1, -1)
-          break
-        case 'ArrowDown':
-          e.preventDefault()
-          handleArrowKey(1, 0)
-          break
-      }
-    }
-
-    const onKeyDown = useWrapEvent(handleKeyDown, propsOnKeyDown)
-
     return (
       <MenuItemContext.Provider value={context}>
         <ul
           ref={forkedRef}
-          tabIndex={-1}
           role="menu"
-          onKeyDown={onKeyDown}
           {...omitStyledProps(omit(props, 'groupDividers'))}
+          {...navProps}
         >
           {content}
         </ul>

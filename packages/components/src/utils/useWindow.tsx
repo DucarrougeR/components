@@ -155,7 +155,7 @@ export interface UseWindowProps {
   spacerTag?: WindowSpacerTag
 }
 
-export const useWindow = ({
+export const useWindow = <E extends HTMLElement = HTMLElement>({
   children,
   enabled,
   childHeight,
@@ -175,7 +175,7 @@ export const useWindow = ({
     return [sum, ladder]
   }, [childHeight, childArray])
 
-  const [containerElement, ref] = useCallbackRef()
+  const [containerElement, ref] = useCallbackRef<E>()
   const { height } = useMeasuredElement(containerElement)
   const scrollPosition = useScrollPosition(containerElement)
 

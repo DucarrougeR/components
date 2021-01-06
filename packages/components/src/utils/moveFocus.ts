@@ -24,8 +24,12 @@
 
  */
 
-const getTabStops = (ref: HTMLElement): HTMLElement[] =>
-  Array.from(ref.querySelectorAll('a,button:not(:disabled),[tabindex="0"]'))
+export const getTabStops = (ref: HTMLElement): HTMLElement[] =>
+  Array.from(
+    ref.querySelectorAll(
+      'a,button:not(:disabled),[tabindex="0"],[tabindex="-1"]'
+    )
+  )
 
 export const moveFocus = (
   direction: number,
@@ -35,19 +39,22 @@ export const moveFocus = (
   if (element) {
     const tabStops = getTabStops(element)
 
-    if (
-      document.activeElement &&
-      tabStops.includes(document.activeElement as HTMLElement)
-    ) {
-      const next =
-        tabStops.findIndex((f) => f === document.activeElement) + direction
+    if (tabStops.length > 0) {
+      let toFocus = tabStops.slice(initial)[0]
+      if (
+        document.activeElement &&
+        tabStops.includes(document.activeElement as HTMLElement)
+      ) {
+        const next =
+          tabStops.findIndex((f) => f === document.activeElement) + direction
 
-      if (next === tabStops.length) return
-      if (!tabStops[next]) return
-      tabStops[next].focus()
-    } else {
-      tabStops.slice(initial)[0].focus()
+        if (next === tabStops.length) return null
+        if (!tabStops[next]) return null
+        toFocus = tabStops[next]
+      }
+      toFocus.focus()
+      return toFocus
     }
   }
-  return false
+  return null
 }

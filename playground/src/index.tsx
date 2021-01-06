@@ -25,13 +25,18 @@
  */
 import React from 'react'
 import { render } from 'react-dom'
-import { ComponentsProvider } from '@looker/components'
-import { Basic } from '@looker/components/src/Menu/Menu.story'
+import { ComponentsProvider, MenuList, MenuItem } from '@looker/components'
 
 const App = () => {
   return (
     <ComponentsProvider loadGoogleFonts>
-      <Basic />
+      <button>Button</button>
+      <MenuList>
+        <MenuItem>Foo</MenuItem>
+        <MenuItem>Bar</MenuItem>
+        <MenuItem>Baz</MenuItem>
+      </MenuList>
+      <button>Button</button>
     </ComponentsProvider>
   )
 }
