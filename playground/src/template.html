@@ -3,6 +3,18 @@
   <head>
     <meta name="viewport" content="width=device-width" />
     <title>welcome</title>
+    <style>
+      /* These are the bad styles */
+      p {
+        background: green;
+        color: purple;
+      }
+
+      /* This is our reset */
+      [class*='looker-components'] {
+        color: inherit;
+      }
+    </style>
   </head>
   <body>
     <div id="container"></div>

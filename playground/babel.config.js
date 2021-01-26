@@ -31,6 +31,7 @@ module.exports = (api) => {
     ['@babel/plugin-proposal-decorators', { decoratorsBeforeExport: true }],
     ['@babel/plugin-proposal-class-properties'],
     ['@babel/transform-runtime'],
+    ['babel-plugin-styled-components', { namespace: 'looker-components' }],
   ]
 
   const presets = [
