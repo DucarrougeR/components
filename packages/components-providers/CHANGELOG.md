@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.12.0](https://github.com/looker-open-source/components/compare/v0.10.4...v0.12.0) (2021-02-04)
+
+
+### Features
+
+* **components:** nestedMenu on MenuItem ([#1780](https://github.com/looker-open-source/components/issues/1780)) ([7a1fada](https://github.com/looker-open-source/components/commit/7a1fada4523dd0805279baed974dc27836f32207))
+
+
+
+
+
 # [0.11.0](https://github.com/looker-open-source/components/compare/v0.10.4...v0.11.0) (2021-02-04)
 
 **Note:** Version bump only for package @looker/icons
